@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html, body {
+    @apply bg-slate-50 text-slate-900 transition-colors duration-200;
+  }
+  html.dark, html.dark body {
+    @apply bg-slate-950 text-slate-100;
+  }
+}
+
+/* UI Animations & Transitions Toggle */
+html.no-animations *,
+html.no-animations *::before,
+html.no-animations *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Content Density Styles */
+html[data-density="compact"] {
+  font-size: 14px;
+}
+html[data-density="compact"] .p-8 { padding: 1.25rem !important; }
+html[data-density="compact"] .p-6 { padding: 0.875rem !important; }
+html[data-density="compact"] .p-5 { padding: 0.75rem !important; }
+html[data-density="compact"] .p-4 { padding: 0.625rem !important; }
+html[data-density="compact"] .px-8 { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+html[data-density="compact"] .px-6 { padding-left: 1rem !important; padding-right: 1rem !important; }
+html[data-density="compact"] .py-6 { padding-top: 0.875rem !important; padding-bottom: 0.875rem !important; }
+html[data-density="compact"] .py-5 { padding-top: 0.625rem !important; padding-bottom: 0.625rem !important; }
+html[data-density="compact"] .py-3.5 { padding-top: 0.375rem !important; padding-bottom: 0.375rem !important; }
+html[data-density="compact"] .gap-8 { gap: 1.25rem !important; }
+html[data-density="compact"] .gap-6 { gap: 1rem !important; }
+html[data-density="compact"] .space-y-10 > * + * { margin-top: 1.5rem !important; }
+html[data-density="compact"] .space-y-8 > * + * { margin-top: 1.25rem !important; }
+html[data-density="compact"] .space-y-6 > * + * { margin-top: 0.875rem !important; }
+
+html[data-density="comfortable"] {
+  font-size: 16px;
+}
+html[data-density="comfortable"] .p-6 { padding: 2rem !important; }
+html[data-density="comfortable"] .p-4 { padding: 1.5rem !important; }
+html[data-density="comfortable"] .px-6 { padding-left: 2rem !important; padding-right: 2rem !important; }
+html[data-density="comfortable"] .py-5 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+html[data-density="comfortable"] .gap-6 { gap: 2rem !important; }
+html[data-density="comfortable"] .space-y-6 > * + * { margin-top: 2rem !important; }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #report-content, #report-content * {
+    visibility: visible;
+  }
+  #report-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  /* Hide the modal wrapper styles to just show the content */
+  .fixed.inset-4 {
+    position: static;
+    box-shadow: none;
+    inset: auto;
+    overflow: visible;
+  }
+}

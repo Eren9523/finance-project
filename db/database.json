@@ -1,0 +1,308 @@
+{
+  "users": [
+    {
+      "id": "U1786433165757",
+      "username": "admin",
+      "password_hash": "$2b$10$PUzC9jlbkiKwZrCeP5T6Fe/Au0iZzY9.sY/8ZqyFWWsoGqf7pdcUO",
+      "role": "admin",
+      "nickname": "系统管理员",
+      "email": "admin@example.com",
+      "department": "总行数据中心",
+      "lastLogin": "2026-08-12T07:17:20.315Z",
+      "avatar": "https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=f8fafc"
+    }
+  ],
+  "sessions": {
+    "d8d1e8dc-6f65-4f8c-9c47-377f002cc358": {
+      "userId": "U1786433165757",
+      "expires": 1786520081907
+    },
+    "ca3f7890-efb1-42b5-a95d-37984236fc49": {
+      "userId": "U1786433165757",
+      "expires": 1786520298500
+    },
+    "977e6e15-0fea-4cb3-b731-c3375f0bc5e3": {
+      "userId": "U1786433165757",
+      "expires": 1786520384154
+    },
+    "d5d841f0-7ebb-4cf7-95d3-21217975f17e": {
+      "userId": "U1786433165757",
+      "expires": 1786520423019
+    },
+    "de513e62-5394-4736-82fc-63686132ccaf": {
+      "userId": "U1786433165757",
+      "expires": 1786521258041
+    },
+    "baac88d0-4fec-466c-9e50-6463e09790e1": {
+      "userId": "U1786433165757",
+      "expires": 1786521454262
+    },
+    "2d63b892-248f-4515-8793-b5c3a32f370b": {
+      "userId": "U1786433165757",
+      "expires": 1786521484443
+    },
+    "0f0fc4ec-36da-434b-bfcb-b6895be8b785": {
+      "userId": "U1786433165757",
+      "expires": 1786522001597
+    },
+    "1846f9d2-bf8c-42dd-9290-ac404f4bb505": {
+      "userId": "U1786433165757",
+      "expires": 1786522071710
+    },
+    "b255c21e-8161-4ca3-8def-c6b0875cee36": {
+      "userId": "U1786433165757",
+      "expires": 1786522200575
+    },
+    "80147b45-a266-4d1c-9802-59d91ef0f806": {
+      "userId": "U1786433165757",
+      "expires": 1786522467424
+    },
+    "b39a6f29-feca-4b07-9e67-c370f6b145e0": {
+      "userId": "U1786433165757",
+      "expires": 1786522710466
+    },
+    "cd24be70-265a-41f4-aef1-c8a522eb5d2e": {
+      "userId": "U1786433165757",
+      "expires": 1786522710472
+    },
+    "0e743ced-80b1-4bb2-9164-aa01e95ff873": {
+      "userId": "U1786433165757",
+      "expires": 1786522724779
+    },
+    "2869c7eb-d26f-47ae-b1f7-cb042a68001a": {
+      "userId": "U1786433165757",
+      "expires": 1786522725035
+    },
+    "71f227c3-2db5-4ee7-8d0f-3c47d917a0f0": {
+      "userId": "U1786433165757",
+      "expires": 1786522747234
+    },
+    "37a41a84-a818-4034-a1ed-529cd75e3d45": {
+      "userId": "U1786433165757",
+      "expires": 1786522747484
+    },
+    "1b9f1a90-13c2-466f-898b-55e3af315f3e": {
+      "userId": "U1786433165757",
+      "expires": 1786522750847
+    },
+    "49c74584-9951-44ac-8442-1f6e3006143f": {
+      "userId": "U1786433165757",
+      "expires": 1786522751842
+    },
+    "4f7a1628-dc98-4cfc-b242-cbe96da0f22e": {
+      "userId": "U1786433165757",
+      "expires": 1786522935106
+    },
+    "c61ba423-478c-4799-983b-c371fb13849f": {
+      "userId": "U1786433165757",
+      "expires": 1786522935373
+    },
+    "089bc993-c17c-4a22-8a6c-44e4664dfcf8": {
+      "userId": "U1786433165757",
+      "expires": 1786524033824
+    },
+    "9f28ea55-b085-459e-80b8-387884288ea5": {
+      "userId": "U1786433165757",
+      "expires": 1786524034117
+    },
+    "9f007189-e686-4050-bd49-5bff61e3cf39": {
+      "userId": "U1786433165757",
+      "expires": 1786524137558
+    },
+    "c37add77-9bfa-4936-8ae5-a6a6ec70391f": {
+      "userId": "U1786433165757",
+      "expires": 1786524137855
+    },
+    "5c87b771-3a5f-4503-bdce-3c314187c34e": {
+      "userId": "U1786433165757",
+      "expires": 1786524349090
+    },
+    "7233a564-24da-4bdf-9fbd-711103fcd0ca": {
+      "userId": "U1786433165757",
+      "expires": 1786524349387
+    },
+    "588c5b83-80cd-493b-b3aa-084ef69faf83": {
+      "userId": "U1786433165757",
+      "expires": 1786524999983
+    },
+    "b013e7b4-bf4d-4540-a76f-51f8bde5dad7": {
+      "userId": "U1786433165757",
+      "expires": 1786525016066
+    },
+    "b8bc342e-ecc8-4bb6-aaa0-47ee7d1f8bbc": {
+      "userId": "U1786433165757",
+      "expires": 1786525016431
+    },
+    "b597be39-02d9-4202-a25e-5cce891698fb": {
+      "userId": "U1786433165757",
+      "expires": 1786525188742
+    },
+    "e84d89aa-d584-4c21-9c3c-7be6e4ba9fae": {
+      "userId": "U1786433165757",
+      "expires": 1786525189059
+    },
+    "044bcbde-f72e-43a1-87bb-7b540dbe0d2e": {
+      "userId": "U1786433165757",
+      "expires": 1786525325434
+    },
+    "c180f47c-a918-45c0-ba40-9ddf9c0399eb": {
+      "userId": "U1786433165757",
+      "expires": 1786601556638
+    },
+    "707e4e0a-05fc-4ab7-8cde-ffdf7c5d06ce": {
+      "userId": "U1786433165757",
+      "expires": 1786601600767
+    },
+    "56c0f5bb-69a0-4d10-861d-0f2324b169d3": {
+      "userId": "U1786433165757",
+      "expires": 1786601601324
+    },
+    "f4389950-931a-4215-8585-b3f5df44200a": {
+      "userId": "U1786433165757",
+      "expires": 1786602976862
+    },
+    "2027ade0-1dc2-4ccd-89f1-ba4506cc6d96": {
+      "userId": "U1786433165757",
+      "expires": 1786602977199
+    },
+    "4ae408ad-e376-400f-9bfa-9fd7fee9dcb1": {
+      "userId": "U1786433165757",
+      "expires": 1786604806066
+    },
+    "f97d26b9-20a7-472c-955c-7f4f4f856381": {
+      "userId": "U1786433165757",
+      "expires": 1786604808202
+    },
+    "c150619c-398d-4a76-978f-2bb2d6e149d0": {
+      "userId": "U1786433165757",
+      "expires": 1786604808555
+    },
+    "3e0301b2-ab9b-40da-9583-6d91a8b0f98e": {
+      "userId": "U1786433165757",
+      "expires": 1786605440315
+    },
+    "267edce6-2511-41e3-bb6f-9fc0fcc8aba8": {
+      "userId": "U1786433165757",
+      "expires": 1786605442900
+    },
+    "c2027be6-136e-4353-9768-39cec6d17274": {
+      "userId": "U1786433165757",
+      "expires": 1786605443189
+    },
+    "57f5247a-af36-4cbb-b5fd-ab4fa9ba9785": {
+      "userId": "U1786433165757",
+      "expires": 1786605499422
+    },
+    "239e2b16-5f94-4e56-a308-13cc64093672": {
+      "userId": "U1786433165757",
+      "expires": 1786605499690
+    },
+    "9b396a26-55ae-4f4f-8655-2b7c423f4e91": {
+      "userId": "U1786433165757",
+      "expires": 1786605514253
+    },
+    "11750739-d8db-47b1-aae0-d5db2d981c1f": {
+      "userId": "U1786433165757",
+      "expires": 1786605514532
+    },
+    "9fe54bd8-c8ea-4939-b357-788adb9d52f2": {
+      "userId": "U1786433165757",
+      "expires": 1786605545903
+    },
+    "4ef856d8-2513-4f93-b167-10a597888df5": {
+      "userId": "U1786433165757",
+      "expires": 1786605546193
+    },
+    "8bb54585-152c-48ba-8c06-2a983bb0ebc7": {
+      "userId": "U1786433165757",
+      "expires": 1786605602522
+    },
+    "ecba6bb2-1638-4683-a0c2-0a82573aada5": {
+      "userId": "U1786433165757",
+      "expires": 1786605602789
+    },
+    "63ae3d6d-aeb1-4c8c-a85e-8847646c83f9": {
+      "userId": "U1786433165757",
+      "expires": 1786605637239
+    },
+    "6787f243-e319-4983-8b4f-040c97441a4e": {
+      "userId": "U1786433165757",
+      "expires": 1786605637511
+    }
+  },
+  "ai_provider_configs": {},
+  "models": [
+    {
+      "id": "m_001",
+      "name": "消费贷授信未用信促提模型",
+      "category": "营销",
+      "scenarios": [
+        "营销"
+      ],
+      "capabilities": [
+        "数据分析"
+      ],
+      "status": "Approved"
+    },
+    {
+      "id": "m_002",
+      "name": "财富客户流失预警模型",
+      "category": "风控",
+      "scenarios": [
+        "风控"
+      ],
+      "capabilities": [
+        "风险预测"
+      ],
+      "status": "Approved"
+    },
+    {
+      "id": "m_003",
+      "name": "企业信贷欺诈识别模型",
+      "category": "风控",
+      "scenarios": [
+        "风控"
+      ],
+      "capabilities": [
+        "欺诈检测"
+      ],
+      "status": "Needs Review"
+    },
+    {
+      "id": "m_004",
+      "name": "大额资金异动监测模型",
+      "category": "合规",
+      "scenarios": [
+        "合规"
+      ],
+      "capabilities": [
+        "监控"
+      ],
+      "status": "Approved"
+    },
+    {
+      "id": "m_005",
+      "name": "智能客服知识推荐模型",
+      "category": "服务",
+      "scenarios": [
+        "客服"
+      ],
+      "capabilities": [
+        "语义搜索"
+      ],
+      "status": "Conflict"
+    },
+    {
+      "id": "m_006",
+      "name": "新客理财产品推荐模型",
+      "category": "营销",
+      "scenarios": [
+        "营销"
+      ],
+      "capabilities": [
+        "推荐"
+      ],
+      "status": "Approved"
+    }
+  ]
+}

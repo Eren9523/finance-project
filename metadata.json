@@ -1,0 +1,6 @@
+{
+  "name": "银行模型推荐助手",
+  "description": "基于业务需求智能解析和匹配最合适的银行模型资产及应用链路。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

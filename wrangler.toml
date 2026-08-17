@@ -1,0 +1,8 @@
+name = "finance-model-assistant"
+main = "cloudflare-worker.js"
+compatibility_date = "2026-08-11"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "finance-project-db"
+database_id = "847689d7-8cc1-473e-8aa5-767f98ae2b7a"
