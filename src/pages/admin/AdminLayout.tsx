@@ -132,6 +132,7 @@ const NavGroup: React.FC<{ group: any, setSidebarOpen: any }> = ({ group, setSid
                 <NavLink
                   key={item.name}
                   to={item.to}
+                  end
                   onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) => cn(
                     "block px-3 py-2 text-sm rounded-lg transition-colors",
