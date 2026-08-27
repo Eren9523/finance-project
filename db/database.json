@@ -8,7 +8,7 @@
       "nickname": "系统管理员",
       "email": "admin@example.com",
       "department": "总行数据中心",
-      "lastLogin": "2026-08-12T07:17:20.315Z",
+      "lastLogin": "2026-08-27T06:50:17.746Z",
       "avatar": "https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=f8fafc"
     }
   ],
@@ -228,6 +228,54 @@
     "6787f243-e319-4983-8b4f-040c97441a4e": {
       "userId": "U1786433165757",
       "expires": 1786605637511
+    },
+    "b7e43fb0-1b4b-4912-b696-2023e0dcb0a6": {
+      "userId": "U1786433165757",
+      "expires": 1787899340573
+    },
+    "ad12660f-c9f6-4ba4-9452-67a57d0ed4f6": {
+      "userId": "U1786433165757",
+      "expires": 1787899341137
+    },
+    "e9e0be04-97c2-4b2a-bbe7-4ced75af8937": {
+      "userId": "U1786433165757",
+      "expires": 1787899434407
+    },
+    "bb675c60-c22b-42f3-866f-6d0c1e4169fe": {
+      "userId": "U1786433165757",
+      "expires": 1787899434977
+    },
+    "19f59a63-e3a6-4d2c-8462-c6d69d7e532e": {
+      "userId": "U1786433165757",
+      "expires": 1787899546315
+    },
+    "63272565-0208-44a5-a996-0622da48c45d": {
+      "userId": "U1786433165757",
+      "expires": 1787899546887
+    },
+    "ae3f1d0a-7abe-4bb9-a45c-8c9659f1d631": {
+      "userId": "U1786433165757",
+      "expires": 1787899817746
+    },
+    "57f61212-5d55-4e26-92f5-952f6ff0b263": {
+      "userId": "U1786433165757",
+      "expires": 1787899821987
+    },
+    "baf97773-411c-4be5-96db-0a9aeaf85c90": {
+      "userId": "U1786433165757",
+      "expires": 1787899822549
+    },
+    "595b9b65-9c99-4f1a-abfa-01fba27d152a": {
+      "userId": "U1786433165757",
+      "expires": 1787900245454
+    },
+    "1687f26b-5ff2-4dd0-b7a9-acf717b1d1f4": {
+      "userId": "U1786433165757",
+      "expires": 1787900246022
+    },
+    "3e9fd8d5-1df0-48fa-adbd-68359d8df2ca": {
+      "userId": "U1786433165757",
+      "expires": 1787901474691
     }
   },
   "ai_provider_configs": {},

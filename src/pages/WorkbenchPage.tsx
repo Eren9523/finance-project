@@ -87,7 +87,9 @@ const normalizeCombinedRec = (comb: any) => {
       ...n,
       model: mockModels.find(m => m.id === n.modelId) || mockModels.find(m => m.id === 'm_003') || mockModels[0],
       roleInFlow: n.role || n.roleInFlow || '核心节点智能处理',
-      expectedValue: n.expectedValue || '实现高效业务智能化处理'
+      expectedValue: n.expectedValue || '实现高效业务智能化处理',
+      input: n.input || (n.modelId === 'm_005' ? '企业原始财报PDF、流水CSV' : n.modelId === 'm_003' ? '解析后的标准特征体系' : '业务数据特征'),
+      output: n.output || (n.modelId === 'm_005' ? '结构化经营特征指标' : n.modelId === 'm_003' ? '客户风险与准入评分' : '推荐决策结果'),
     })),
     edges: comb.edges || []
   };
@@ -1005,32 +1007,32 @@ export const WorkbenchPage = () => {
                           </div>
                         </div>
 
-                        <div className="relative pl-6">
+                        <div className="relative">
                           {/* Flow Line */}
-                          <div className="absolute left-9 top-6 bottom-6 w-0.5 bg-slate-200 dark:bg-slate-800"></div>
+                          <div className="absolute left-[2.25rem] top-8 bottom-8 w-0.5 bg-slate-200 dark:bg-slate-800"></div>
                           
-                          <div className="space-y-8">
+                          <div className="space-y-6">
                             {combinedRec.nodes.map((node, i) => (
-                              <div key={node.id} className="relative">
+                              <div key={node.id} className="relative pl-16 pr-2">
                                 {/* Node Dot */}
-                                <div className="absolute -left-[1.35rem] top-6 flex h-6 w-6 items-center justify-center rounded-full border-4 border-white dark:border-slate-900 bg-blue-500 shadow-sm z-10">
-                                  <span className="text-[10px] font-bold text-white">{i + 1}</span>
+                                <div className="absolute left-[21px] top-6 flex h-8 w-8 items-center justify-center rounded-full border-[3px] border-white dark:border-slate-900 bg-blue-500 shadow-sm z-10">
+                                  <span className="text-xs font-bold text-white">{i + 1}</span>
                                 </div>
                                 
-                                <div className="ml-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm hover:shadow-md transition-shadow">
-                                  <div className="mb-3 flex items-center justify-between">
-                                    <div className="text-sm font-semibold text-blue-600 dark:text-blue-400">{node.roleInFlow}</div>
-                                    <div className="text-xs font-medium text-slate-500 dark:text-slate-400">{node.model.name}</div>
+                                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm hover:shadow-md transition-shadow">
+                                  <div className="mb-4 flex items-center justify-between">
+                                    <div className="text-[15px] font-bold text-blue-700 dark:text-blue-400">{node.roleInFlow}</div>
+                                    <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-md">{node.model.name}</div>
                                   </div>
                                   
-                                  <div className="grid grid-cols-2 gap-4 rounded-lg bg-slate-50 dark:bg-slate-800/60 p-4">
-                                    <div>
-                                      <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('所需输入')}</div>
-                                      <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{node.input}</div>
+                                  <div className="grid grid-cols-2 gap-6 rounded-lg bg-slate-50 dark:bg-slate-800/50 p-4 border border-slate-100 dark:border-slate-700/50">
+                                    <div className="flex flex-col gap-1.5">
+                                      <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">{t('所需输入')}</div>
+                                      <div className="text-[13px] font-medium text-slate-800 dark:text-slate-200 leading-relaxed">{node.input}</div>
                                     </div>
-                                    <div>
-                                      <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">{t('模型输出')}</div>
-                                      <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{node.output}</div>
+                                    <div className="flex flex-col gap-1.5">
+                                      <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">{t('模型输出')}</div>
+                                      <div className="text-[13px] font-medium text-slate-800 dark:text-slate-200 leading-relaxed">{node.output}</div>
                                     </div>
                                   </div>
                                 </div>

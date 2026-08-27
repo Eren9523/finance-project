@@ -617,7 +617,11 @@ ${text.substring(0, 5000)}
             combinedRecommendation: {
               title: "经营贷智能准入与风控组合架构",
               description: "文本流水解析引擎 + 结构化评分模型",
-              nodes: [{ id: "1", modelId: "M1786433", role: "经营文本解析与风险识别" }],
+              nodes: [
+                { id: "1", modelId: "m_005", role: "企业财报与流水解析，提取新客经营特征", input: "企业原始财报PDF、流水CSV", output: "结构化经营特征指标" },
+                { id: "2", modelId: "m_003", role: "小微准入与反欺诈评分，筛选可贷客户", input: "解析后的标准特征体系", output: "客户风险与准入评分" },
+                { id: "3", modelId: "M1786433", role: "营销促提策略，刺激未用信放款", input: "准入评分与行内沉淀数据", output: "促提建议与营销话术" }
+              ],
               edges: []
             }
           }
@@ -645,7 +649,7 @@ ${text.substring(0, 5000)}
   "combinedRecommendation": {
     "title": "组合方案名称",
     "description": "组合方案描述",
-    "nodes": [ { "id": "1", "modelId": "模型id", "role": "角色说明" } ],
+    "nodes": [ { "id": "1", "modelId": "模型id", "role": "角色说明", "input": "模型所需输入", "output": "模型输出结果" } ],
     "edges": [ { "source": "1", "target": "2", "label": "数据流转说明" } ]
   }
 }`
