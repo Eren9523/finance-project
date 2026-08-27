@@ -6,6 +6,7 @@ import { mockModels } from '../data/mock';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { exportToPDF } from '../lib/pdfExport';
 import { exportToWord } from '../lib/docExport';
+import html2canvas from 'html2canvas-pro';
 import { useAuth } from '../contexts/AuthContext';
 import { useSettings } from '../contexts/SettingsContext';
 
@@ -164,6 +165,17 @@ export const WorkbenchPage = () => {
     if (!parseResult || !singleRecs || singleRecs.length === 0) return;
     setIsExportingWord(true);
     try {
+      let radarImageBase64 = undefined;
+      const radarElement = document.getElementById('radar-chart-export');
+      if (radarElement) {
+        const canvas = await html2canvas(radarElement, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#ffffff'
+        });
+        radarImageBase64 = canvas.toDataURL('image/png');
+      }
+
       await exportToWord({
         title: '业务模型智能推荐综合报告',
         domain: parseResult.domain,
@@ -171,6 +183,7 @@ export const WorkbenchPage = () => {
         parseResult,
         singleRecs,
         combinedRec: combinedRec || undefined,
+        radarImageBase64,
       }, '业务模型智能推荐综合报告.docx');
     } catch (err) {
       console.error('Word export error:', err);
@@ -1166,7 +1179,7 @@ export const WorkbenchPage = () => {
                       </div>
 
                       {/* 图二：五维度匹配度雷达图 + 五维度匹配明细 */}
-                      <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800">
+                      <div id="radar-chart-export" className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800">
                         <div className="text-xs font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center justify-between">
                           <span>{t('五维度模型适配度评价 (Radar Chart)')}</span>
                           <span className="text-[11px] font-normal text-slate-500 dark:text-slate-400">{t('满分 100 分')}</span>
