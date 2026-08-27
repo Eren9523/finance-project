@@ -9,6 +9,24 @@ import {
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
+const generateOrbit = (rx: number, ry: number, phase: number, steps: number = 60) => {
+  const x = [];
+  const y = [];
+  const scale = [];
+  for (let i = 0; i <= steps; i++) {
+    const angle = (i / steps) * Math.PI * 2 + phase;
+    x.push(Math.cos(angle) * rx);
+    y.push(Math.sin(angle) * ry);
+    // scale based on y position (sin(angle)): when y is positive (front), scale is larger
+    scale.push(0.95 + Math.sin(angle) * 0.15); 
+  }
+  return { x, y, scale };
+};
+
+const orbit1 = generateOrbit(76, 42, 0);
+const orbit2 = generateOrbit(76, 42, (Math.PI * 2) / 3); // 120 degrees phase shift
+const orbit3 = generateOrbit(76, 42, (Math.PI * 4) / 3); // 240 degrees phase shift
+
 export const ArchitecturePage = () => {
   // Stepwise reveal state for Layer 01 (Simulate real user chat -> intent -> dialogue -> structured -> profile)
   const [chatStep, setChatStep] = useState<number>(0);
@@ -388,7 +406,7 @@ export const ArchitecturePage = () => {
                 </div>
               </div>
 
-              {/* ================= STAGE 2: 候选融合 (Smart Animation Core) ================= */}
+              {/* ================= STAGE 2: 候选融合 (Exact Style from Reference Image) ================= */}
               <motion.div 
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -396,7 +414,7 @@ export const ArchitecturePage = () => {
                 className="flex flex-col h-full items-center justify-between"
               >
                 {/* Step Header */}
-                <div className="h-11 flex flex-col items-center justify-start mb-3 text-center">
+                <div className="h-11 flex flex-col items-center justify-start mb-2 text-center">
                   <div className="inline-flex items-center justify-center gap-1.5 mb-1">
                     <span className="px-2 py-0.5 rounded-full bg-blue-100/90 dark:bg-blue-900/60 text-blue-600 dark:text-blue-300 text-xs font-bold font-mono">
                       02
@@ -406,71 +424,164 @@ export const ArchitecturePage = () => {
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap">
-                    Reciprocal Rank
+                    Reciprocal Rank Fusion
                   </p>
                 </div>
 
-                {/* Animated Interactive Core Container */}
-                <div className="flex flex-col items-center justify-center flex-1 w-full my-auto">
-                  <div className="relative flex items-center justify-center w-36 h-36">
+                {/* Main Interactive Celestial Orb Container matching Reference Image */}
+                <div className="flex flex-col items-center justify-center flex-1 w-full my-auto py-1">
+                  <div className="relative flex items-center justify-center w-44 h-44 select-none">
                     
-                    {/* Glowing AI Ambient Pulse Ring */}
-                    <motion.div 
-                      animate={{ 
-                        scale: [1, 1.08, 1],
-                        opacity: [0.35, 0.65, 0.35]
+                    {/* Background Soft Radial Glow */}
+                    <div 
+                      className="absolute inset-0 rounded-full blur-2xl pointer-events-none opacity-70 dark:opacity-50"
+                      style={{
+                        background: 'radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(99, 102, 241, 0.25) 50%, transparent 75%)'
                       }}
-                      transition={{ 
-                        duration: 3, 
-                        repeat: Infinity, 
-                        ease: "easeInOut" 
-                      }}
-                      className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-400/20 via-sky-300/25 to-indigo-400/20 blur-md pointer-events-none"
                     />
 
-                    {/* Rotating Dashed Outer Orbit */}
-                    <div className="absolute inset-1 rounded-full border border-dashed border-blue-300/80 dark:border-blue-600/60 animate-[spin_12s_linear_infinite]" />
-
-                    {/* Orbiting AI Data Nodes */}
-                    <motion.div 
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-1 pointer-events-none"
+                    {/* Orbit Ellipse Ring (Tilted SVG) */}
+                    <svg 
+                      viewBox="0 0 180 180" 
+                      className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
                     >
-                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-blue-500 shadow-xs shadow-blue-500/80" />
-                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-xs shadow-indigo-500/80" />
-                    </motion.div>
+                      <defs>
+                        <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.8" />
+                          <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.6" />
+                          <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.4" />
+                        </linearGradient>
+                      </defs>
+                      <ellipse 
+                        cx="90" 
+                        cy="90" 
+                        rx="78" 
+                        ry="42" 
+                        transform="rotate(-28 90 90)" 
+                        fill="none" 
+                        stroke="url(#orbitGrad)" 
+                        strokeWidth="1.5"
+                      />
+                    </svg>
 
-                    {/* Central Fusion Sphere */}
-                    <motion.div 
-                      whileHover={{ scale: 1.04 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      className="relative z-10 flex flex-col items-center justify-center w-28 h-28 rounded-full border border-blue-200/90 dark:border-blue-700/80 bg-gradient-to-b from-blue-50/95 via-sky-50/80 to-indigo-50/90 dark:from-blue-950/80 dark:via-sky-950/60 dark:to-indigo-950/70 shadow-sm cursor-pointer"
+                    {/* Orbiting Satellite System: Tilted Plane Rotating around Center */}
+                    <div 
+                      className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center"
+                      style={{ transform: 'rotate(-28deg)' }}
                     >
-                      {/* Floating Layers Icon */}
+                      {/* Satellite 1: True Elliptical Harmonic Orbit Animation */}
                       <motion.div
-                        animate={{ y: [-1.5, 1.5, -1.5] }}
-                        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute"
+                        animate={{
+                          x: orbit1.x,
+                          y: orbit1.y,
+                          scale: orbit1.scale,
+                        }}
+                        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                       >
-                        <Layers className="h-6 w-6 text-blue-600 dark:text-blue-400 mb-1" />
+                        <div 
+                          className="absolute -ml-[7px] -mt-[7px] w-3.5 h-3.5 rounded-full"
+                          style={{
+                            background: 'radial-gradient(circle at 35% 30%, #dbeafe 0%, #60a5fa 35%, #2563eb 70%, #1e3a8a 100%)',
+                            boxShadow: '0 2px 8px rgba(37,99,235,0.5)'
+                          }}
+                        />
                       </motion.div>
+
+                      {/* Satellite 2: True Elliptical Harmonic Orbit Animation (Phase Shift +120°) */}
+                      <motion.div
+                        className="absolute"
+                        animate={{
+                          x: orbit2.x,
+                          y: orbit2.y,
+                          scale: orbit2.scale,
+                        }}
+                        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                      >
+                        <div 
+                          className="absolute -ml-[6px] -mt-[6px] w-3 h-3 rounded-full"
+                          style={{
+                            background: 'radial-gradient(circle at 35% 30%, #dbeafe 0%, #60a5fa 35%, #2563eb 70%, #1e3a8a 100%)',
+                            boxShadow: '0 2px 6px rgba(37,99,235,0.45)'
+                          }}
+                        />
+                      </motion.div>
+
+                      {/* Satellite 3: True Elliptical Harmonic Orbit Animation (Phase Shift +240°) */}
+                      <motion.div
+                        className="absolute"
+                        animate={{
+                          x: orbit3.x,
+                          y: orbit3.y,
+                          scale: orbit3.scale,
+                        }}
+                        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                      >
+                        <div 
+                          className="absolute -ml-[8px] -mt-[8px] w-4 h-4 rounded-full"
+                          style={{
+                            background: 'radial-gradient(circle at 35% 30%, #dbeafe 0%, #60a5fa 35%, #2563eb 70%, #1e3a8a 100%)',
+                            boxShadow: '0 3px 10px rgba(37,99,235,0.55)'
+                          }}
+                        />
+                      </motion.div>
+                    </div>
+
+                    {/* Multi-layered Translucent Fusion Sphere */}
+                    <div className="relative flex items-center justify-center w-28 h-28">
+                      {/* Organic Petal Layer 1 */}
+                      <motion.div 
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-[-6px] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] bg-gradient-to-tr from-sky-400/40 via-blue-500/30 to-indigo-500/40 blur-[1px]"
+                      />
                       
-                      <span className="text-xs font-bold text-center leading-tight text-slate-900 dark:text-white">
-                        RRF 融合<br />算法
-                      </span>
-                      <span className="text-[9.5px] text-slate-400 dark:text-slate-400 mt-1 font-mono">
-                        k = 60 平滑
-                      </span>
-                    </motion.div>
+                      {/* Organic Petal Layer 2 */}
+                      <motion.div 
+                        animate={{ rotate: [360, 0] }}
+                        transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-[-4px] rounded-[58%_42%_30%_70%/55%_55%_45%_45%] bg-gradient-to-bl from-blue-400/40 via-cyan-400/30 to-purple-500/30 blur-[1px]"
+                      />
+
+                      {/* Organic Petal Layer 3 - Glow */}
+                      <div className="absolute inset-[-2px] rounded-full bg-gradient-to-tr from-blue-400/60 via-sky-300/60 to-indigo-400/60 blur-[3px]" />
+
+                      {/* Core Glowing Ball with RRF Typography */}
+                      <motion.div 
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="relative z-10 flex flex-col items-center justify-center w-24 h-24 rounded-full text-white cursor-pointer shadow-lg overflow-hidden"
+                        style={{
+                          background: 'radial-gradient(circle at 38% 32%, #38bdf8 0%, #2563eb 45%, #1d4ed8 75%, #1e40af 100%)',
+                          boxShadow: '0 8px 24px rgba(37,99,235,0.45), inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -4px 8px rgba(30,58,138,0.5)'
+                        }}
+                      >
+                        <span className="text-[20px] font-black tracking-wider leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                          RRF
+                        </span>
+                        <span className="text-[11px] font-bold tracking-widest mt-1 text-blue-50 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
+                          融合算法
+                        </span>
+                      </motion.div>
+                    </div>
                   </div>
 
-                  {/* Subtitle Under Sphere */}
-                  <div className="text-center mt-2">
-                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block">
-                      多路权重自适应
+                  {/* Subtitle Under Sphere: k = 60 · 平滑 */}
+                  <div className="text-center mt-1">
+                    <span className="text-xs font-medium text-slate-400 dark:text-slate-400 font-mono tracking-wider">
+                      k = 60 · 平滑
                     </span>
-                    <span className="text-[10px] text-slate-400 dark:text-slate-400">
-                      消除量纲偏差
+                  </div>
+
+                  {/* Bottom Feature Tag: 3-Bar Chart Icon + 多路权重自适应 */}
+                  <div className="flex items-center justify-center gap-1.5 mt-3">
+                    <div className="flex items-end gap-[2px] h-3.5 pb-0.5">
+                      <span className="w-1 h-2 bg-blue-600 dark:bg-blue-400 rounded-xs" />
+                      <span className="w-1 h-2.5 bg-blue-500 dark:bg-blue-300 rounded-xs" />
+                      <span className="w-1 h-3.5 bg-sky-400 dark:bg-sky-300 rounded-xs" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 dark:text-white whitespace-nowrap">
+                      多路权重自适应
                     </span>
                   </div>
                 </div>
