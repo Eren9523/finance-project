@@ -403,6 +403,49 @@ async function startServer() {
     });
   });
 
+
+
+  app.post("/api/usage", (req, res) => {
+    try {
+      const db = getDb();
+      if (!db.ai_usage_logs) db.ai_usage_logs = [];
+      db.ai_usage_logs.push({
+        id: 'log_' + Date.now() + Math.random().toString(36).substring(2, 9),
+        timestamp: new Date().toISOString(),
+        ...req.body
+      });
+      saveDb(db);
+      res.json({ success: true });
+    } catch (e) {
+      res.status(500).json({ success: false, error: { message: e.message } });
+    }
+  });
+
+  app.post("/api/recommendations", (req, res) => {
+    try {
+      const db = getDb();
+      if (!db.recommendations) db.recommendations = [];
+      db.recommendations.push({
+        id: 'rec_' + Date.now() + Math.random().toString(36).substring(2, 9),
+        timestamp: new Date().toISOString(),
+        ...req.body
+      });
+      saveDb(db);
+      res.json({ success: true });
+    } catch (e) {
+      res.status(500).json({ success: false, error: { message: e.message } });
+    }
+  });
+
+  app.get("/api/recommendations", (req, res) => {
+    try {
+      const db = getDb();
+      res.json({ success: true, data: db.recommendations || [] });
+    } catch (e) {
+      res.status(500).json({ success: false, error: { message: e.message } });
+    }
+  });
+
   app.post("/api/admin/ai/pricing/calibrate", requireAuth, requireAdmin, async (req: any, res: any) => {
     try {
       const response = await fetch("https://api-docs.deepseek.com/zh-cn/quick_start/pricing");

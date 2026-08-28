@@ -1,18 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Search, Filter, History } from 'lucide-react';
 import { useSettings } from '../../contexts/SettingsContext';
+import { apiClient } from '../../api/client';
 
 export const AdminRecommendationsPage = () => {
   const { t } = useSettings();
+  const [records, setRecords] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const records = [
-    { id: 'REC-20260811-001', user: 'admin', query: '县域新客经营贷营销，贷前', status: 'success', models: ['M001', 'M005'], time: '2026-08-11 14:02' },
-    { id: 'REC-20260811-002', user: 'zhangsan', query: '信用卡欺诈识别模型，用于风险过滤', status: 'success', models: ['M008'], time: '2026-08-11 13:45' },
-    { id: 'REC-20260811-003', user: 'lisi', query: 'AUM 50万客户维稳模型', status: 'success', models: ['M002'], time: '2026-08-11 11:20' },
-    { id: 'REC-20260810-045', user: 'wangwu', query: '对公洗钱预警网络图谱', status: 'success', models: ['M011', 'M013'], time: '2026-08-10 16:30' },
-    { id: 'REC-20260810-042', user: 'admin', query: '房贷违约预测', status: 'clarifying', models: [], time: '2026-08-10 15:10' }
-  ];
+  useEffect(() => {
+    const fetchRecords = async () => {
+      setLoading(true);
+      let serverRecords = null;
+      let fallbackToLocal = false;
+      try {
+        const res = await apiClient('/api/recommendations');
+        if (res.success && res.data && res.data.length > 0) {
+          setRecords(res.data.reverse());
+          serverRecords = res.data;
+        } else {
+          fallbackToLocal = true;
+        }
+      } catch (e) {
+        console.error(e);
+        fallbackToLocal = true;
+      }
+      
+      if (fallbackToLocal) {
+        try {
+          const localRecs = JSON.parse(localStorage.getItem('recommendations') || '[]');
+          if (localRecs.length > 0) {
+            setRecords(localRecs.reverse());
+          } else if (!serverRecords) {
+            setRecords([]);
+          }
+        } catch(e) {
+          console.error(e);
+        }
+      }
+      setLoading(false);
+    };
+    fetchRecords();
+  }, []);
 
   return (
     <div className="space-y-6 text-slate-900 dark:text-slate-100">
@@ -42,16 +72,21 @@ export const AdminRecommendationsPage = () => {
             <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400">
               <tr>
                 <th className="px-6 py-4 font-medium">{t('推荐单号')}</th>
-                <th className="px-6 py-4 font-medium">{t('用户')}</th>
                 <th className="px-6 py-4 font-medium">{t('原始需求')}</th>
-                <th className="px-6 py-4 font-medium">{t('状态')}</th>
                 <th className="px-6 py-4 font-medium">{t('推荐模型')}</th>
                 <th className="px-6 py-4 font-medium">{t('时间')}</th>
-                <th className="px-6 py-4 font-medium text-right">{t('操作')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900">
-              {records.map((rec, i) => (
+              {loading && records.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="px-6 py-8 text-center text-slate-500">{t('正在加载...')}</td>
+                </tr>
+              ) : records.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="px-6 py-8 text-center text-slate-500">{t('暂无推荐记录')}</td>
+                </tr>
+              ) : records.map((rec, i) => (
                 <motion.tr 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -61,30 +96,17 @@ export const AdminRecommendationsPage = () => {
                 >
                   <td className="px-6 py-4 font-mono text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
                     <History className="h-3.5 w-3.5 text-slate-400" />
-                    {rec.id}
+                    {rec.id || 'REC-XXX'}
                   </td>
-                  <td className="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">{rec.user}</td>
-                  <td className="px-6 py-4 text-slate-600 dark:text-slate-300 truncate max-w-[200px]">{t(rec.query)}</td>
+                  <td className="px-6 py-4 text-slate-600 dark:text-slate-300 truncate max-w-[200px]">{t(rec.query || '-')}</td>
                   <td className="px-6 py-4">
-                    {rec.status === 'success' ? (
-                       <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">{t('完成')}</span>
-                    ) : (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300">{t('澄清中')}</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex gap-1">
-                      {rec.models.length > 0 ? rec.models.map(m => (
-                        <span key={m} className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-xs font-mono">{m}</span>
+                    <div className="flex flex-wrap gap-1">
+                      {rec.singleRecs && rec.singleRecs.length > 0 ? rec.singleRecs.map((m: any) => (
+                        <span key={m.modelId || (m.model && m.model.name)} className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-xs font-mono">{m.modelId || (m.model && m.model.name)}</span>
                       )) : <span className="text-slate-400">-</span>}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{rec.time}</td>
-                  <td className="px-6 py-4 text-right">
-                    <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-xs">
-                      {t('详情')}
-                    </button>
-                  </td>
+                  <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{rec.timestamp ? new Date(rec.timestamp).toLocaleString() : '-'}</td>
                 </motion.tr>
               ))}
             </tbody>

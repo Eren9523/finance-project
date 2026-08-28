@@ -276,6 +276,46 @@
     "3e9fd8d5-1df0-48fa-adbd-68359d8df2ca": {
       "userId": "U1786433165757",
       "expires": 1787901474691
+    },
+    "e58e0a87-38f7-455a-807f-9451f46aed01": {
+      "userId": "U1786433165757",
+      "expires": 1787982219440
+    },
+    "21b538cb-a4b6-4416-a609-8d47db114086": {
+      "userId": "U1786433165757",
+      "expires": 1787982220563
+    },
+    "673fd2ef-2421-4e00-84a5-6fcb1e58cccd": {
+      "userId": "U1786433165757",
+      "expires": 1787983564222
+    },
+    "5a148b5e-b803-4b19-b765-c5a5a9a4ad45": {
+      "userId": "U1786433165757",
+      "expires": 1787983564762
+    },
+    "a9f5ff8d-d236-48f7-81c5-a2e02c9d7456": {
+      "userId": "U1786433165757",
+      "expires": 1787985379217
+    },
+    "2c03932a-0100-4a29-a286-85bbee535e8f": {
+      "userId": "U1786433165757",
+      "expires": 1787985379758
+    },
+    "5f3087a9-89c5-48de-b505-6a2b84d4e3f0": {
+      "userId": "U1786433165757",
+      "expires": 1787985678560
+    },
+    "931760fb-4a29-4408-ad70-ce318502b09d": {
+      "userId": "U1786433165757",
+      "expires": 1787985679125
+    },
+    "7d2488b0-bbc2-4f36-803d-9bd9a0a59019": {
+      "userId": "U1786433165757",
+      "expires": 1787987134270
+    },
+    "2e2b269e-6e3d-4d8b-ba95-9acf06f7c495": {
+      "userId": "U1786433165757",
+      "expires": 1787987134872
     }
   },
   "ai_provider_configs": {},
@@ -351,6 +391,30 @@
         "推荐"
       ],
       "status": "Approved"
+    }
+  ],
+  "ai_usage_logs": [
+    {
+      "id": "log_1787901067373jkth2ek",
+      "timestamp": "2026-08-28T07:11:07.373Z",
+      "model": "deepseek-chat",
+      "total_tokens": 100,
+      "prompt_tokens": 40,
+      "completion_tokens": 60,
+      "calculated_cost_cny": 0.00012,
+      "latency_ms": 1200
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec_1787901073065lgi65i8",
+      "timestamp": "2026-08-28T07:11:13.065Z",
+      "query": "测试风控模型",
+      "singleRecs": [
+        {
+          "modelId": "m_003"
+        }
+      ]
     }
   ]
 }

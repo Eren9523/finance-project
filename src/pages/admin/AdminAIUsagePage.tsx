@@ -12,16 +12,69 @@ export const AdminAIUsagePage = () => {
 
   const fetchStats = async () => {
     setLoading(true);
+    let serverStats = null;
+    let fallbackToLocal = false;
     try {
       const res = await adminApi.getUsageStats();
-      if (res.success) {
+      if (res.success && res.data && res.data.requests > 0) {
         setStats(res.data);
+        serverStats = res.data;
+      } else {
+        fallbackToLocal = true;
       }
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
+      fallbackToLocal = true;
     }
+    
+    if (fallbackToLocal) {
+      try {
+        const localLogs = JSON.parse(localStorage.getItem('ai_usage_logs') || '[]');
+        if (localLogs.length > 0) {
+          let totalRequests = localLogs.length;
+          let totalTokens = 0, totalCost = 0, totalLatency = 0;
+          let cacheHit = 0, cacheMiss = 0, completion = 0, thinking = 0;
+          localLogs.forEach((log: any) => {
+            totalTokens += log.total_tokens || 0;
+            totalCost += log.calculated_cost_cny || 0;
+            totalLatency += log.latency_ms || 0;
+            cacheHit += log.prompt_cache_hit_tokens || 0;
+            cacheMiss += log.prompt_cache_miss_tokens || 0;
+            completion += log.completion_tokens || 0;
+            thinking += log.reasoning_tokens || 0;
+          });
+          const avgLatency = totalRequests ? (totalLatency / totalRequests / 1000).toFixed(2) : 0;
+          const proCount = localLogs.filter((l: any) => l.model === 'deepseek-reasoner').length;
+          const flashCount = localLogs.filter((l: any) => l.model === 'deepseek-chat').length;
+          const totalModels = proCount + flashCount || 1;
+          
+          setStats({
+            requests: totalRequests,
+            tokens: totalTokens,
+            cost: totalCost,
+            avgLatency,
+            distribution: {
+              pro: Math.round((proCount / totalModels) * 100),
+              flash: Math.round((flashCount / totalModels) * 100)
+            },
+            breakdown: {
+              cacheHit, cacheMiss, completion, thinking
+            },
+            pricing: { version: 0, time: 'N/A' }
+          });
+        } else if (!serverStats) {
+          setStats({
+            requests: 0, tokens: 0, cost: 0, avgLatency: 0,
+            distribution: { pro: 0, flash: 0 },
+            breakdown: { cacheHit: 0, cacheMiss: 0, completion: 0, thinking: 0 },
+            pricing: { version: 0, time: 'N/A' }
+          });
+        }
+      } catch(e) {
+        console.error(e);
+      }
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
