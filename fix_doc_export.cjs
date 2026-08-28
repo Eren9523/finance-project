@@ -1,4 +1,6 @@
-import { 
+const fs = require('fs');
+
+const content = `import { 
   Document, 
   Packer, 
   Paragraph, 
@@ -28,7 +30,7 @@ export interface ReportExportData {
 }
 
 function base64ToUint8Array(base64: string): Uint8Array {
-  const base64Data = base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
+  const base64Data = base64.replace(/^data:image\\/(png|jpeg|jpg);base64,/, "");
   const binaryString = window.atob(base64Data);
   const len = binaryString.length;
   const bytes = new Uint8Array(len);
@@ -63,9 +65,9 @@ export async function exportToWord(
     new Paragraph({
       children: [
         new TextRun({ text: '需求领域: ', bold: true, color: '64748B' }),
-        new TextRun({ text: `${data.domain || parseResult?.domain || '金融业务 / 智能化模型选型'}    ` }),
+        new TextRun({ text: \`\${data.domain || parseResult?.domain || '金融业务 / 智能化模型选型'}    \` }),
         new TextRun({ text: '评估时间: ', bold: true, color: '64748B' }),
-        new TextRun({ text: `${data.generatedAt || new Date().toLocaleDateString()}    ` }),
+        new TextRun({ text: \`\${data.generatedAt || new Date().toLocaleDateString()}    \` }),
         new TextRun({ text: '校验状态: ', bold: true, color: '64748B' }),
         new TextRun({ text: '合规审计已通过', color: '10B981', bold: true }),
       ],
@@ -189,7 +191,7 @@ export async function exportToWord(
           size: 28, // 14pt
           color: '2563EB',
         }),
-        new TextRun({ text: `    (综合匹配度: ${primaryModel?.matchScore || 96}%)`, bold: true, color: '10B981' }),
+        new TextRun({ text: \`    (综合匹配度: \${primaryModel?.matchScore || 96}%)\`, bold: true, color: '10B981' }),
       ],
       spacing: { after: 100 },
     })
@@ -243,7 +245,7 @@ export async function exportToWord(
   ]).forEach((reason) => {
     children.push(
       new Paragraph({
-        text: `• ${reason}`,
+        text: \`• \${reason}\`,
         spacing: { after: 50 },
       })
     );
@@ -271,7 +273,7 @@ export async function exportToWord(
               size: 24, // 12pt
               color: '475569',
             }),
-            new TextRun({ text: `    (匹配度: ${rec.matchScore}%)`, color: '3B82F6' }),
+            new TextRun({ text: \`    (匹配度: \${rec.matchScore}%)\`, color: '3B82F6' }),
           ],
           spacing: { after: 100 },
         })
@@ -279,7 +281,7 @@ export async function exportToWord(
 
       children.push(
         new Paragraph({
-          text: `目标用户: ${rec.model.description || ''}`,
+          text: \`目标用户: \${rec.model.description || ''}\`,
           spacing: { after: 100 },
         })
       );
@@ -373,7 +375,7 @@ export async function exportToWord(
             (node, idx) =>
               new TableRow({
                 children: [
-                  new TableCell({ children: [new Paragraph({ text: `0${idx + 1}` })], margins: { top: 100, bottom: 100, left: 100, right: 100 } }),
+                  new TableCell({ children: [new Paragraph({ text: \`0\${idx + 1}\` })], margins: { top: 100, bottom: 100, left: 100, right: 100 } }),
                   new TableCell({ children: [new Paragraph({ text: node.roleInFlow })], margins: { top: 100, bottom: 100, left: 100, right: 100 } }),
                   new TableCell({ children: [new Paragraph({ text: node.model.name })], margins: { top: 100, bottom: 100, left: 100, right: 100 } }),
                   new TableCell({ children: [new Paragraph({ text: node.expectedValue })], margins: { top: 100, bottom: 100, left: 100, right: 100 } }),
@@ -408,3 +410,6 @@ export async function exportToWord(
   const blob = await Packer.toBlob(doc);
   saveAs(blob, filename);
 }
+`;
+
+fs.writeFileSync('src/lib/docExport.ts', content);
