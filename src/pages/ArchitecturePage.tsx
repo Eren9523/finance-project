@@ -46,8 +46,11 @@ const OrbitingSatellite = ({
   useEffect(() => {
     let animationFrameId: number;
     const start = performance.now();
-    const rx = 76;
-    const ry = 42;
+    // Container is 192px (w-48), viewBox is 180x180.
+    // Ellipse in SVG: rx=78, ry=42. Scale factor = 192 / 180 = 1.066667
+    // Precise physical pixel radii:
+    const rx = 78 * (192 / 180); // 83.2px
+    const ry = 42 * (192 / 180); // 44.8px
     const angleZ = -28 * (Math.PI / 180);
     const cosZ = Math.cos(angleZ);
     const sinZ = Math.sin(angleZ);
@@ -78,7 +81,7 @@ const OrbitingSatellite = ({
 
   return (
     <div
-      className="absolute top-1/2 left-1/2"
+      className="absolute top-1/2 left-1/2 pointer-events-none"
       ref={ref}
       style={{ width: 0, height: 0 }}
     >
@@ -87,8 +90,7 @@ const OrbitingSatellite = ({
         style={{
           width: size,
           height: size,
-          marginLeft: -size / 2,
-          marginTop: -size / 2,
+          transform: "translate(-50%, -50%)",
           boxShadow: shadowClass,
         }}
       />
@@ -700,27 +702,113 @@ export const ArchitecturePage = () => {
                       02
                     </span>
                     <span className="text-[13px] font-bold text-slate-900 dark:text-white whitespace-nowrap">
-                      候选融合
+                      最优融合
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap">
-                    Reciprocal Rank Fusion
+                    互惠等级融合
                   </p>
                 </div>
 
                 {/* Main Interactive Celestial Orb Container matching Reference Image */}
                 <div className="flex flex-col items-center justify-center flex-1 w-full my-auto py-1">
-                  <div className="relative flex items-center justify-center w-44 h-44 select-none">
+                  <div className="relative flex items-center justify-center w-48 h-48 select-none">
                     {/* Background Soft Radial Glow */}
                     <div
-                      className="absolute inset-0 rounded-full blur-2xl pointer-events-none opacity-70 dark:opacity-50"
+                      className="absolute inset-0 rounded-full blur-2xl pointer-events-none opacity-75 dark:opacity-60"
                       style={{
                         background:
-                          "radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(99, 102, 241, 0.25) 50%, transparent 75%)",
+                          "radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(99, 102, 241, 0.25) 50%, transparent 75%)",
                       }}
                     />
 
-                    {/* Orbit Ellipse Ring (Tilted SVG) - Back Half (Z-0) */}
+                    {/* Subtle Elegant PCB Circuit Board Trace Layer */}
+                    <svg
+                      viewBox="0 0 200 200"
+                      className="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-0 opacity-40 dark:opacity-60"
+                    >
+                      <defs>
+                        <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.8" />
+                          <stop offset="50%" stopColor="#93c5fd" stopOpacity="0.4" />
+                          <stop offset="100%" stopColor="#6366f1" stopOpacity="0.7" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Top-Left Circuit Bus */}
+                      <path
+                        d="M 15 35 L 55 35 L 75 55 L 75 75"
+                        fill="none"
+                        stroke="url(#circuitGrad)"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="15" cy="35" r="2.5" fill="#38bdf8" />
+                      <circle cx="75" cy="75" r="1.8" fill="#93c5fd" />
+
+                      {/* Top-Right Circuit Bus */}
+                      <path
+                        d="M 185 35 L 145 35 L 125 55 L 125 75"
+                        fill="none"
+                        stroke="url(#circuitGrad)"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="185" cy="35" r="2.5" fill="#38bdf8" />
+                      <circle cx="125" cy="75" r="1.8" fill="#93c5fd" />
+
+                      {/* Bottom-Left Circuit Bus with subtle flowing pulse */}
+                      <path
+                        d="M 20 165 L 60 165 L 80 145 L 80 125"
+                        fill="none"
+                        stroke="url(#circuitGrad)"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="20" cy="165" r="2.5" fill="#38bdf8" />
+                      <circle cx="80" cy="125" r="1.8" fill="#93c5fd" />
+                      {/* Pulse on bottom-left trace */}
+                      <motion.path
+                        d="M 20 165 L 60 165 L 80 145 L 80 125"
+                        fill="none"
+                        stroke="#60a5fa"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeDasharray="8 60"
+                        animate={{ strokeDashoffset: [0, -68] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                      />
+
+                      {/* Bottom-Right Circuit Bus with subtle flowing pulse */}
+                      <path
+                        d="M 180 165 L 140 165 L 120 145 L 120 125"
+                        fill="none"
+                        stroke="url(#circuitGrad)"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="180" cy="165" r="2.5" fill="#38bdf8" />
+                      <circle cx="120" cy="125" r="1.8" fill="#93c5fd" />
+                      {/* Pulse on bottom-right trace */}
+                      <motion.path
+                        d="M 180 165 L 140 165 L 120 145 L 120 125"
+                        fill="none"
+                        stroke="#60a5fa"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeDasharray="8 60"
+                        animate={{ strokeDashoffset: [0, -68] }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+                      />
+
+                      {/* Geometric Micro Chip Pad Markers */}
+                      <rect x="97" y="16" width="6" height="6" rx="1.5" fill="#38bdf8" opacity="0.6" />
+                      <line x1="100" y1="22" x2="100" y2="40" stroke="url(#circuitGrad)" strokeWidth="1" strokeDasharray="2 3" />
+                      <rect x="97" y="178" width="6" height="6" rx="1.5" fill="#38bdf8" opacity="0.6" />
+                      <line x1="100" y1="178" x2="100" y2="160" stroke="url(#circuitGrad)" strokeWidth="1" strokeDasharray="2 3" />
+                    </svg>
+
+                    {/* Orbit Ellipse Ring (Tilted SVG) - Back Half (Z-0): Clean Single Stroke */}
                     <svg
                       viewBox="0 0 180 180"
                       className="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-0"
@@ -729,43 +817,19 @@ export const ArchitecturePage = () => {
                         clipPath: "polygon(0 0, 100% 0, 100% 50%, 0 50%)",
                       }}
                     >
-                      <defs>
-                        <linearGradient
-                          id="orbitGrad"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="100%"
-                        >
-                          <stop
-                            offset="0%"
-                            stopColor="#93c5fd"
-                            stopOpacity="0.8"
-                          />
-                          <stop
-                            offset="50%"
-                            stopColor="#60a5fa"
-                            stopOpacity="0.6"
-                          />
-                          <stop
-                            offset="100%"
-                            stopColor="#38bdf8"
-                            stopOpacity="0.4"
-                          />
-                        </linearGradient>
-                      </defs>
                       <ellipse
                         cx="90"
                         cy="90"
                         rx="78"
                         ry="42"
                         fill="none"
-                        stroke="url(#orbitGrad)"
+                        stroke="#60a5fa"
+                        strokeOpacity="0.85"
                         strokeWidth="1.5"
                       />
                     </svg>
 
-                    {/* Orbit Ellipse Ring (Tilted SVG) - Front Half (Z-20) */}
+                    {/* Orbit Ellipse Ring (Tilted SVG) - Front Half (Z-20): Clean Single Stroke */}
                     <svg
                       viewBox="0 0 180 180"
                       className="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-20"
@@ -780,18 +844,19 @@ export const ArchitecturePage = () => {
                         rx="78"
                         ry="42"
                         fill="none"
-                        stroke="url(#orbitGrad)"
+                        stroke="#60a5fa"
+                        strokeOpacity="0.85"
                         strokeWidth="1.5"
                       />
                     </svg>
 
-                    {/* Orbiting Satellite System */}
+                    {/* Orbiting Satellite System: Blue Planetary Spheres matching reference */}
                     <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                       {/* Satellite 1: Phase 0 */}
                       <OrbitingSatellite
                         phase={0}
                         size={14}
-                        colorClass="bg-gradient-to-br from-blue-100 to-blue-800"
+                        colorClass="bg-gradient-to-br from-blue-200 via-blue-400 to-blue-700"
                         shadowClass="0 2px 8px rgba(37,99,235,0.5)"
                       />
 
@@ -799,7 +864,7 @@ export const ArchitecturePage = () => {
                       <OrbitingSatellite
                         phase={(Math.PI * 2) / 3}
                         size={12}
-                        colorClass="bg-gradient-to-br from-blue-100 to-blue-800"
+                        colorClass="bg-gradient-to-br from-blue-200 via-blue-400 to-blue-700"
                         shadowClass="0 2px 6px rgba(37,99,235,0.45)"
                       />
 
@@ -807,7 +872,7 @@ export const ArchitecturePage = () => {
                       <OrbitingSatellite
                         phase={(Math.PI * 4) / 3}
                         size={16}
-                        colorClass="bg-gradient-to-br from-blue-100 to-blue-800"
+                        colorClass="bg-gradient-to-br from-blue-200 via-blue-400 to-blue-700"
                         shadowClass="0 3px 10px rgba(37,99,235,0.55)"
                       />
                     </div>
@@ -872,7 +937,7 @@ export const ArchitecturePage = () => {
                     </span>
                   </div>
 
-                  {/* Bottom Feature Tag: 3-Bar Chart Icon + 多路权重自适应 */}
+                  {/* Bottom Feature Tag: 3-Bar Chart Icon + 多路权重天线 */}
                   <div className="flex items-center justify-center gap-1.5 mt-3">
                     <div className="flex items-end gap-[2px] h-3.5 pb-0.5">
                       <span className="w-1 h-2 bg-blue-600 dark:bg-blue-400 rounded-xs" />
@@ -880,7 +945,7 @@ export const ArchitecturePage = () => {
                       <span className="w-1 h-3.5 bg-sky-400 dark:bg-sky-300 rounded-xs" />
                     </div>
                     <span className="text-xs font-bold text-slate-900 dark:text-white whitespace-nowrap">
-                      多路权重自适应
+                      多路权重天线
                     </span>
                   </div>
                 </div>
@@ -1417,15 +1482,27 @@ export const ArchitecturePage = () => {
                 />
 
                 {/* Transition Arrow leading into Version Bundle */}
-                <div className="hidden xl:flex items-center justify-center shrink-0 pl-1">
+                <motion.div 
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.5 },
+                    visible: { opacity: 1, scale: 1, transition: { delay: 1.8, duration: 0.4 } },
+                  }}
+                  className="hidden xl:flex items-center justify-center shrink-0 pl-1"
+                >
                   <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-50/80 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800 text-blue-500 shadow-2xs">
                     <ArrowRight className="h-3.5 w-3.5" />
                   </div>
-                </div>
+                </motion.div>
               </div>
 
               {/* Version Bundle Info Box */}
-              <div className="lg:col-span-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/20 p-4 xl:p-4.5 shadow-2xs flex flex-col justify-between h-full">
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, x: 20 },
+                  visible: { opacity: 1, x: 0, transition: { delay: 2.0, duration: 0.5, ease: "easeOut" } },
+                }}
+                className="lg:col-span-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/20 p-4 xl:p-4.5 shadow-2xs flex flex-col justify-between h-full"
+              >
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <div className="flex items-center gap-2">
@@ -1436,8 +1513,8 @@ export const ArchitecturePage = () => {
                         v2.4.0 稳定版
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      Version Bundle 一体化打包与灰度上线
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                      版本Bundle一体化优先与灰度上线
                     </p>
                   </div>
                   <div className="h-8 w-8 rounded-xl bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
@@ -1448,11 +1525,11 @@ export const ArchitecturePage = () => {
                 <div className="grid grid-cols-2 gap-x-2 gap-y-2 text-xs text-slate-600 dark:text-slate-300">
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    <span className="truncate">Dataset (评测集)</span>
+                    <span className="truncate">数据集 (体育集)</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    <span className="truncate">Ranker (精排权重)</span>
+                    <span className="truncate">精排权重</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
@@ -1460,7 +1537,7 @@ export const ArchitecturePage = () => {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    <span className="truncate">Prompt (提示词)</span>
+                    <span className="truncate">提示 (提示词)</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
@@ -1468,10 +1545,10 @@ export const ArchitecturePage = () => {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    <span className="truncate">LLM Config (模型配置)</span>
+                    <span className="truncate">LLM配置 (模型配置)</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </SequenceSection>
 
